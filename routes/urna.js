@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Urna = require('../models/Urna');
 const Eleicao = require('../models/Eleicao');
+const {eAdmin, isLogado} = require('../helpers/permissao')
 
-router.get('/:id', (req, res) => {
+router.get('/:id', isLogado, (req, res) => {
     Eleicao.findByPk(req.params.id).then(function (eleicao){
         Urna.findAll({
             where:{
@@ -16,13 +17,13 @@ router.get('/:id', (req, res) => {
 
 })//Fim da Rota
 
-router.get('/cadastrar/:id', (req, res) => {
+router.get('/cadastrar/:id', eAdmin, (req, res) => {
     Eleicao.findByPk(req.params.id).then(function (eleicao){
         res.render('urna/cadastrar', {eleicao: eleicao});
     })
 })
 
-router.post('/cadastrar', (req, res) => {
+router.post('/cadastrar', eAdmin, (req, res) => {
     let urna = {
         descricao: req.body.descricao,
         eleicao_id: req.body.eleicao_id,
@@ -37,7 +38,7 @@ router.post('/cadastrar', (req, res) => {
     })
 })
 
-router.get('/excluir/:id', (req, res) => {
+router.get('/excluir/:id', eAdmin, (req, res) => {
     Urna.findByPk(req.params.id).then(function (urna) {
         if(urna.status > 0){
             req.flash('error_msg', 'Não é possível excluir urna após iniciar a eleição');

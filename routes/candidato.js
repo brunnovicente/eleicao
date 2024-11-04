@@ -3,8 +3,9 @@ const router = express.Router();
 const Eleicao = require('../models/Eleicao');
 const Candidato = require('../models/Candidato');
 const Eleitor = require('../models/Eleitor');
+const {eAdmin, isLogado} = require('../helpers/permissao')
 
-router.get('/:id', (req, res) => {
+router.get('/:id', isLogado, (req, res) => {
     Eleicao.findByPk(req.params.id).then((eleicao) => {
         Candidato.findAll({
             include:[
@@ -24,7 +25,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.get('/cadastrar/:id', (req, res) => {
+router.get('/cadastrar/:id', eAdmin, (req, res) => {
     Eleitor.findAll().then(function (eleitores) {
         Eleicao.findByPk(req.params.id).then((eleicao) => {
             res.render('candidato/cadastrar', { eleitores, eleicao});
@@ -32,7 +33,7 @@ router.get('/cadastrar/:id', (req, res) => {
     })
 });
 
-router.post('/cadastrar/', (req, res) => {
+router.post('/cadastrar/', eAdmin,(req, res) => {
     const candidato = {
         descricao: req.body.descricao,
         votos: 0,

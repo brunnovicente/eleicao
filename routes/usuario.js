@@ -6,20 +6,21 @@ const Eleitor = require('../models/Eleitor');
 const passport = require('passport');
 const transporter = require("../config/email");
 const seguranca = require("../helpers/senha");
+const {eAdmin, isLogado} = require('../helpers/permissao')
 
-router.get('/', (req, res) => {
+router.get('/', eAdmin,(req, res) => {
     res.render('usuario/index')
 })
 
-router.get('/cadastrar', (req, res) => {
+router.get('/cadastrar', eAdmin, (req, res) => {
     res.render('usuario/cadastrar')
 })
 
-router.get('/alterarsenha', (req, res)=>{
+router.get('/alterarsenha', isLogado, (req, res)=>{
     res.render('usuario/alterarsenha')
 })
 
-router.post('/alterarsenha', (req, res)=>{
+router.post('/alterarsenha', isLogado,(req, res)=>{
     if(req.body.nova === req.body.repita){
         Usuario.findByPk(req.user.id).then(function (usuario){
             usuario.password = req.body.nova
@@ -44,7 +45,7 @@ router.post('/alterarsenha', (req, res)=>{
     }
 })
 
-router.post('/cadastrar', (req, res) => {
+router.post('/cadastrar', eAdmin,(req, res) => {
     var usuario = {
         username: req.body.username,
         password: req.body.password,
@@ -133,7 +134,7 @@ router.post('/esqueceu', (req, res) => {
 
 
 
-router.get('/logout', (req, res) => {
+router.get('/logout', isLogado,(req, res) => {
     req.logout(function (erro){
         req.flash('success_msg', 'Usuário deslogado com sucesso.')
         res.redirect('/usuario/login')

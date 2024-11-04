@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Eleicao = require('../models/Eleicao');
-const Eleitor = require('../models/Eleitor');
-//const Urna = require('../models/Urna');
 const {eAdmin, isLogado} = require('../helpers/permissao');
 
 router.get('/', isLogado,(req, res) => {
@@ -31,14 +29,6 @@ router.post('/cadastrar', eAdmin, (req, res) => {
         req.flash('error_msg', error)
         res.redirect('/eleicao');
     })
-})
-
-router.get('/view/:id', (req, res) => {
-    Eleicao.findByPk(req.params.id).then(
-        function (eleicao) {
-            res.render('eleicao/view', {eleicao: eleicao});
-        }
-    )
 })
 
 module.exports = router;

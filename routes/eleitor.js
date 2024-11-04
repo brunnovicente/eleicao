@@ -3,6 +3,7 @@ const router = express.Router();
 const {eAdmin, isLogado} = require('../helpers/permissao')
 const Eleitor = require('../models/Eleitor')
 const Usuario = require('../models/Usuario')
+const email = require('../config/email')
 
 router.get('/', eAdmin,(req, res) => {
     Eleitor.findAll().then(

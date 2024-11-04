@@ -15,6 +15,35 @@ router.get('/cadastrar', (req, res) => {
     res.render('usuario/cadastrar')
 })
 
+router.get('/alterarsenha', (req, res)=>{
+    res.render('usuario/alterarsenha')
+})
+
+router.post('/alterarsenha', (req, res)=>{
+    if(req.body.nova === req.body.repita){
+        Usuario.findByPk(req.user.id).then(function (usuario){
+            usuario.password = req.body.nova
+            bcrypt.genSalt(10, function (erro, salt) {
+                bcrypt.hash(usuario.password, salt, function (erro, hash) {
+                    if(erro){
+                        req.flash('error_msg', erro)
+                        res.redirect('/principal')
+                    }
+                    usuario.update({
+                        password: hash
+                    }).then(function () {
+                        req.flash('success_msg', 'Senha alterado com sucesso')
+                        res.redirect('/principal')
+                    })
+                })
+            })
+        })
+    }else{
+        req.flash('error_msg', 'Repita a senha')
+        res.redirect('/usuario/alterarsenha')
+    }
+})
+
 router.post('/cadastrar', (req, res) => {
     var usuario = {
         username: req.body.username,

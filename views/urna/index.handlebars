@@ -1,0 +1,36 @@
+<div class="container-sm">
+    <nav class="navbar navbar-light bg-light p-1">
+        <h4><i class="fa-solid fa-check-to-slot"></i> Urnas - Eleição: {{eleicao.descricao}}</h4>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a href="/urna/cadastrar/{{eleicao.id}}" class="btn btn-outline-success btn-sm m-1">
+                    <i class="fa-solid fa-plus"></i> Nova
+                </a>
+                <a href="/eleicao" class="btn btn-outline-secondary btn-sm m-1">
+                    <i class="fa-solid fa-chevron-left"></i> Voltar
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="d-flex flex-wrap">
+        {{#each urnas}}
+            <div class="border border-1 rounded rounded-1 p-2 m-2" style="width: 400px">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="/img/urna.png" style="width: 90px;" class="d-block mx-auto">
+                    </div>
+                    <div class="col-9">
+                        <div><strong>CODIGO</strong>: {{id}}</div>
+                        <div><strong>DESCRIÇÃO</strong>: {{descricao}}</div>
+                        <div><strong>STATUS</strong>: {{statusUrna status}}</div>
+                    </div>
+                </div>
+                <div>
+                    <a href="/voto/votar/{{eleicao_id}}/{{id}}" class="btn btn-sm btn-primary" title = "Votar"><i class="fa-solid fa-check-to-slot"></i> Votar</a>
+                    <a href="/urna/excluir/{{id}}" class="btn btn-sm btn-danger" title = "Excluir"><i class="fa-solid fa-trash-can"></i> Excluir</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

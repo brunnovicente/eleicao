@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Eleições</title>
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/css/all.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {{>barra}}
+    {{#if error}}
+        <div class="alert alert-danger alert-dismissible fade show m-2 container-sm mx-auto" role="alert">
+            {{error}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {{/if}}
+    {{>msg}}
+    {{{body}}}
+<script src="/js/bootstrap.bundle.js"></script>
+</body>
+</html>

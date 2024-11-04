@@ -1,0 +1,28 @@
+<nav class="navbar bg-success">
+    <div class="container-fluid">
+        <span class="navbar-brand text-white mb-0 h1">
+            <a href="/principal" class="text-decoration-none text-white">Eleições</a>
+        </span>
+        <div class="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-user"></i> Usuario
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#"><i class="fa-regular fa-address-card"></i> Meus Dados</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Configurações</a></li>
+                <div class="dropdown-divider"></div>
+                <li>
+                    <a class="dropdown-item" href="#" onclick="sair()"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+    function sair(){
+        if(confirm('Tem certeza que deseja sair?')){
+            window.location.href = '/usuario/logout'
+        }
+    }
+</script>

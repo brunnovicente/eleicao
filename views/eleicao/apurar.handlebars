@@ -1,0 +1,26 @@
+<div class="container-sm">
+    <nav class="navbar navbar-light bg-light p-1">
+        <h4><i class="fa-solid fa-file-signature"></i> Apuração - Eleição: {{eleicao.descricao}}</h4>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a href="/eleicao/view/{{eleicao.id}}" class="btn btn-outline-secondary btn-sm m-1">
+                    <i class="fa-solid fa-chevron-left"></i> Voltar
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="d-flex flex-wrap">
+        {{#each urnas}}
+            <div class="border border-1 rounded rounded-1 p-2 m-2" >
+                <img src="/img/urna.png" style="width: 100px;" class="d-block mx-auto">
+                <div><strong>CODIGO</strong>: {{id}}</div>
+                <div><strong>DESCRIÇÃO</strong>: {{descricao}}</div>
+                <div><strong>STATUS</strong>: {{statusUrna status}}</div>
+                <div>
+                    <a href="#" class="btn btn-sm btn-primary" title = "Abrir"><i class="fa-solid fa-box-open"></i> Abrir</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

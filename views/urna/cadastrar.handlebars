@@ -1,0 +1,38 @@
+<div class="container-sm">
+
+    <nav class="navbar navbar-light bg-light p-1 mb-1">
+        <h4><i class="fa-solid fa-check-to-slot"></i> Cadastrar Urna</h4>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a href="/urna/{{eleicao.id}}" class="btn btn-outline-secondary btn-sm m-1">
+                    <i class="fa-solid fa-chevron-left"></i> Voltar
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="/urna/cadastrar" method="post">
+                <div class="row my-3">
+                    <input value="{{eleicao.id}}" name="eleicao_id" hidden="hidden">
+                    <div class="col">
+                        <label for="eleicao">ELEIÇÃO</label>
+                        <input value="{{eleicao.descricao}}" disabled type="text" name="eleicao" id="eleicao" class="form-control">
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col">
+                        <label for="descricao">DESCRIÇÃO</label>
+                        <input type="text" name="descricao" id="descricao" class="form-control">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-success" type="submit"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

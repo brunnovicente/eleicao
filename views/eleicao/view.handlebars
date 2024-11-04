@@ -1,0 +1,68 @@
+<div class="container-sm">
+    <nav class="navbar navbar-light bg-light p-1">
+        <h4><i class="fas fa-folder"></i> Eleição: {{eleicao.descricao}}</h4>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a href="/cargo/cadastrar/{{eleicao.id}}" class="btn btn-outline-primary btn-sm m-1">
+                    <i class="fas fa-folder"></i> Novo Cargo
+                </a>
+                <a href="/urna/{{eleicao.id}}" class="btn btn-outline-secondary btn-sm m-1">
+                    <i class="fa-solid fa-check-to-slot"></i> Urnas
+                </a>
+                <a href="/eleicao/apurar/{{eleicao.id}}" class="btn btn-outline-danger btn-sm m-1">
+                    <i class="fa-solid fa-file-signature"></i> Apuração
+                </a>
+
+                <a href="/eleicao" class="btn btn-outline-secondary btn-sm m-1">
+                    <i class="fa-solid fa-chevron-left"></i> Voltar
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <h5 class="my-2">Cargos</h5>
+    <hr>
+    <table class="table table-striped">
+        <tr>
+            <th>DESCRIÇÃO</th>
+            <th>VAGAS</th>
+            <th></th>
+        </tr>
+        {{#each cargos}}
+            <tr>
+                <td>{{descricao}}</td>
+                <td>{{vagas}}</td>
+                <td>
+                    <div class="dropdown d-flex justify-content-end">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item text-secondary" href="#">
+                                    <i class="fa-solid fa-user-tie"></i> Candidatos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/eleicao/resultado/{{eleicao.id}}" class="dropdown-item text-success">
+                                    <i class="fa-solid fa-chart-pie"></i> Resultados
+                                </a>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                            <li>
+                                <a href="/eleicao/editar/{{eleicao.id}}" class="dropdown-item text-primary">
+                                    <i class="fa-solid fa-trash-can"></i> Editar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/eleicao/excluir/{{eleicao.id}}" class="dropdown-item text-danger">
+                                    <i class="fa-solid fa-trash-can"></i> Excluir
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+
+</div>

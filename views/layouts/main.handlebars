@@ -7,6 +7,7 @@
     <link href="/css/all.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    <div class="container-fluid">
     {{>barra}}
     {{#if error}}
         <div class="alert alert-danger alert-dismissible fade show m-2 container-sm mx-auto" role="alert">
@@ -16,6 +17,7 @@
     {{/if}}
     {{>msg}}
     {{{body}}}
+    </div>
 <script src="/js/bootstrap.bundle.js"></script>
 </body>
 </html>

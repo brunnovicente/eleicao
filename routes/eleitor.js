@@ -13,20 +13,19 @@ router.get('/', eAdmin,(req, res) => {
         })
 })
 
-// router.get('/gerar', eAdmin, (req, res) => {
-//     Eleitor.findAll().then(function (eleitores) {
-//         for(let i = 0; i < eleitores.length; i++) {
-//             Usuario.create({
-//                 username: eleitores[i].matricula,
-//                 categoria: 1,
-//                 status: 1,
-//                 eleitor_id: eleitores[i].id,
-//                 password: "senha"
-//             })
-//         }
-//         res.redirect('principal')
-//     })
-// })
-
+router.get('/gerar', (req, res) => {
+    Eleitor.findAll().then(function (eleitores) {
+        for(let i = 0; i < eleitores.length; i++) {
+            Usuario.create({
+                username: eleitores[i].matricula,
+                categoria: 0,
+                status: 1,
+                eleitor_id: eleitores[i].id,
+                password: "senha"
+            })
+        }
+        res.redirect('principal')
+    })
+})
 
 module.exports = router;

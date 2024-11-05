@@ -20,6 +20,7 @@ const Urna = banco.sequelize.define('urnas', {
 Urna.belongsTo(Eleicao, {
     foreignKey: 'eleicao_id',
     constraint: true,
+    onDelete: 'CASCADE'
 });
 
 

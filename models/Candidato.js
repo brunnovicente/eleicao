@@ -29,11 +29,13 @@ const Candidatura = banco.sequelize.define('candidatos', {
 Candidatura.belongsTo(Eleitor, {
     foreignKey: 'eleitor_id',
     constraint: true,
+    onDelete: 'CASCADE'
 });
 
 Candidatura.belongsTo(Eleicao, {
     foreignKey: 'eleicao_id',
     constraint: true,
+    onDelete: 'CASCADE'
 });
 
 Candidatura.sync()

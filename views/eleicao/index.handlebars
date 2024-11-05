@@ -49,6 +49,7 @@
                                     <i class="fa-solid fa-play"></i> Iniciar
                                 </a>
                             </li>
+
                             <li>
                                 <a href="/urna/{{id}}" class="dropdown-item text-secondary">
                                     <i class="fa-solid fa-check-to-slot"></i> Urnas
@@ -66,12 +67,19 @@
                         {{#if (igual ../usuario.categoria 1)}}
                             <div class="dropdown-divider"></div>
                             <li>
-                                <a href="#" class="dropdown-item text-primary" title = "Editar"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                <a href="/eleicao/editar/{{id}}" class="dropdown-item text-primary" title = "Editar"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item text-danger" title = "Excluir"><i class="fa-solid fa-trash-can"></i> Excluir</a>
+                                <a onclick="excluir()" href="#" class="dropdown-item text-danger" title = "Excluir"><i class="fa-solid fa-trash-can"></i> Excluir</a>
                             </li>
                         {{/if}}
+                        <script>
+                            function excluir(){
+                                if(confirm(('Excluir uma eleição removerá todos os candidatos, urnas e votos. Tem certeza que deseja continuar, essa ação é irreversível?'))){
+                                    window.location.href = '/eleicao/excluir/{{id}}'
+                                }
+                            }
+                        </script>
 
                     </ul>
                 </div>
@@ -81,3 +89,4 @@
 </table>
 
 </div>
+

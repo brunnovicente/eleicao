@@ -13,10 +13,12 @@ const Comprovante = banco.sequelize.define('comprovantes', {
 Comprovante.belongsTo(Eleitor, {
     foreignKey: 'eleitor_id',
     constraint: true,
+    onDelete: 'CASCADE'
 });
 Comprovante.belongsTo(Eleicao, {
     foreignKey: 'eleicao_id',
     constraint: true,
+    onDelete: 'CASCADE'
 });
 
 // Sincroniza o modelo com o banco de dados, criando a tabela se necessário

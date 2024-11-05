@@ -19,11 +19,13 @@ const Voto = banco.sequelize.define('votos', {
 Voto.belongsTo(Urna, {
     foreignKey: 'urna_id',
     constraint: true,
+    onDelete: 'CASCADE'
 });
 
 Voto.belongsTo(Candidato, {
     foreignKey: 'candidato_id',
     constraint: true,
+    onDelete: 'CASCADE'
 })
 
 Voto.sync()

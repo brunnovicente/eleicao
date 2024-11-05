@@ -84,7 +84,7 @@ router.post('/login', (req, res, next) => {
 
 })
 
-router.get('/logout', isLogado,(req, res) => {
+router.get('/logout',(req, res) => {
     req.logout(function (erro){
         req.flash('success_msg', 'Usuário deslogado com sucesso.')
         res.redirect('/usuario/login')

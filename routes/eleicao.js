@@ -42,4 +42,34 @@ router.get('/iniciar/:id', eAdmin, (req, res) => {
     })
 })
 
+router.get('/excluir/:id', eAdmin, (req, res) => {
+    Eleicao.destroy({
+        where:{
+            id: req.params.id
+        }
+    }).then(function (){
+        req.flash('success_msg', 'Eleicão removida com sucesso.')
+        res.redirect('/eleicao')
+    })
+})
+
+router.get('/editar/:id', eAdmin, (req, res)=>{
+    Eleicao.findByPk(req.params.id).then(function (eleicao){
+        res.render('eleicao/editar', {eleicao: eleicao})
+    })
+})
+
+router.post('/editar', eAdmin, (req, res)=>{
+    Eleicao.findByPk(req.body.id).then(function (eleicao){
+        eleicao.update({
+            descricao: req.body.descricao,
+            inicio: req.body.inicio,
+            fim: req.body.fim
+        }).then(function (){
+            req.flash('success_msg', 'Eleicão editada com sucesso.')
+            res.redirect('/eleicao')
+        })
+    })
+})
+
 module.exports = router;

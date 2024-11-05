@@ -1,0 +1,62 @@
+<div class="container-sm">
+
+    <nav class="navbar navbar-light bg-light p-1 mb-1">
+        <h4><i class="fas fa-folder"></i> Editar Eleições</h4>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a href="/eleicao" class="btn btn-outline-secondary btn-sm m-1">
+                    <i class="fa-solid fa-chevron-left"></i> Voltar
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="/eleicao/editar" method="post">
+                <input type="number" value="{{eleicao.id}}" hidden="hidden" name="id">
+                <div class="row my-3">
+                    <div class="col">
+                        <label for="descricao">DESCRIÇÃO</label>
+                        <input type="text" value="{{eleicao.descricao}}" name="descricao" id="descricao" class="form-control">
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-3">
+                        <label for="inicio">INÍCIO</label>
+                        <input required value="{{eleicao.inicio}}" type="datetime-local" name="inicio" id="inicio" class="form-control">
+                    </div>
+                    <div class="col-3">
+                        <label for="fim">FIM</label>
+                        <input required value="{{eleicao.fim }}" type="datetime-local" name="fim" id="fim" class="form-control">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-success" type="submit"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function preencher(data, elemento) {
+        const inicio = document.getElementById(elemento);
+        // Criar um objeto de data com a string recebida
+        const dataObjeto = new Date(data);
+
+        // Formatar para o valor esperado pelo input datetime-local
+        const ano = dataObjeto.getFullYear();
+        const mes = String(dataObjeto.getMonth() + 1).padStart(2, "0");
+        const dia = String(dataObjeto.getDate()).padStart(2, "0");
+        const horas = String(dataObjeto.getHours()).padStart(2, "0");
+        const minutos = String(dataObjeto.getMinutes()).padStart(2, "0");
+
+        // Preencher o valor do input no formato adequado
+        inicio.value = `${ano}-${mes}-${dia}T${horas}:${minutos}`;
+    }
+    var eleicao = {{eleicao.inicio}}
+    preencher(eleicao.inicio, "inicio")
+    preencher(eleicao.fim, "fim")
+</script>

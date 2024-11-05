@@ -45,6 +45,11 @@
                         {{/if}}
                         {{#if (igual ../usuario.categoria 1)}}
                             <li>
+                                <a href="/eleicao/iniciar/{{id}}" class="dropdown-item text-success">
+                                    <i class="fa-solid fa-play"></i> Iniciar
+                                </a>
+                            </li>
+                            <li>
                                 <a href="/urna/{{id}}" class="dropdown-item text-secondary">
                                     <i class="fa-solid fa-check-to-slot"></i> Urnas
                                 </a>

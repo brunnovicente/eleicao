@@ -84,6 +84,13 @@ router.post('/login', (req, res, next) => {
 
 })
 
+router.get('/logout', isLogado,(req, res) => {
+    req.logout(function (erro){
+        req.flash('success_msg', 'Usuário deslogado com sucesso.')
+        res.redirect('/usuario/login')
+    })
+})
+
 router.get('/esqueceu', (req, res) => {
     res.render('usuario/esqueceu', {layout: 'secundario'})
 })
@@ -129,15 +136,6 @@ router.post('/esqueceu', (req, res) => {
                 })
             })
         })
-    })
-})
-
-
-
-router.get('/logout', isLogado,(req, res) => {
-    req.logout(function (erro){
-        req.flash('success_msg', 'Usuário deslogado com sucesso.')
-        res.redirect('/usuario/login')
     })
 })
 

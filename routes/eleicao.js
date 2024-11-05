@@ -31,4 +31,15 @@ router.post('/cadastrar', eAdmin, (req, res) => {
     })
 })
 
+router.get('/iniciar/:id', eAdmin, (req, res) => {
+    Eleicao.findByPk(req.params.id).then(function (eleicao) {
+        eleicao.update({
+            status: 1
+        }).then(function () {
+            req.flash('success_msg', 'Eleicão iniciada')
+            res.redirect('/eleicao')
+        })
+    })
+})
+
 module.exports = router;

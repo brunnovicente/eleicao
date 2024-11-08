@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Eleicao = require('../models/Eleicao');
+const Candidato = require('../models/Candidato');
 const {eAdmin, isLogado} = require('../helpers/permissao');
 
 router.get('/', isLogado,(req, res) => {
@@ -38,6 +39,39 @@ router.get('/iniciar/:id', eAdmin, (req, res) => {
         }).then(function () {
             req.flash('success_msg', 'Eleicão iniciada')
             res.redirect('/eleicao')
+        })
+    })
+})
+
+router.get('/encerrar/:id', eAdmin, (req, res) => {
+    Eleicao.findByPk(req.params.id).then(function (eleicao) {
+        eleicao.update({
+            status: 2
+        }).then(function () {
+            req.flash('success_msg', 'Votação encerrada com sucesso')
+            res.redirect('/eleicao')
+        })
+    })
+})
+
+router.get('/resultados/:id', isLogado,(req, res) => {
+    Eleicao.findByPk(req.params.id).then(function (eleicao) {
+        Candidato.findAll({
+            where:{
+                eleicao_id: eleicao.id
+            },
+            order: [
+                ['votos', 'DESC'] // Ordena pelo campo "nome" em ordem crescente
+            ]
+        }).then(function (candidatos) {
+            var total = 0;
+            for (let i = 0; i < candidatos.length; i++) {
+                total += candidatos[i].votos
+            }
+            for (let i = 0; i < candidatos.length; i++) {
+                candidatos[i].porcentagem = ((candidatos[i].votos / total)*100).toFixed(2)
+            }
+            res.render('eleicao/resultados', {eleicao: eleicao,candidatos: candidatos, total: total});
         })
     })
 })

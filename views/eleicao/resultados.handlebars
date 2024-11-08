@@ -1,0 +1,28 @@
+<div class="container-sm">
+    <nav class="navbar navbar-light bg-light p-1">
+        <h4><i class="fas fa-folder"></i> Resultado Eleição: {{eleicao.descricao}}</h4>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a href="/principal" class="btn btn-outline-secondary btn-sm m-1">
+                    <i class="fa-solid fa-chevron-left"></i> Voltar
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <table class="table table-striped">
+        <tr>
+            <th>CANDIDATO</th>
+            <th>VOTOS</th>
+            <th>PORCENTAGEM</th>
+        </tr>
+        {{#each candidatos}}
+            <tr>
+                <td>{{descricao}}</td>
+                <td>{{votos}}</td>
+                <td>{{porcentagem}} %</td>
+            </tr>
+        {{/each}}
+    </table>
+
+</div>

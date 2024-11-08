@@ -33,15 +33,15 @@ CREATE TABLE IF NOT EXISTS `candidatos` (
   PRIMARY KEY (`id`),
   KEY `eleitor_id` (`eleitor_id`),
   KEY `eleicao_id` (`eleicao_id`),
-  CONSTRAINT `candidatos_ibfk_1` FOREIGN KEY (`eleitor_id`) REFERENCES `eleitores` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `candidatos_ibfk_2` FOREIGN KEY (`eleicao_id`) REFERENCES `eleicoes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `candidatos_ibfk_1` FOREIGN KEY (`eleitor_id`) REFERENCES `eleitores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `candidatos_ibfk_2` FOREIGN KEY (`eleicao_id`) REFERENCES `eleicoes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Copiando dados para a tabela eleicao.candidatos: ~3 rows (aproximadamente)
 INSERT INTO `candidatos` (`id`, `descricao`, `votos`, `status`, `numero`, `createdAt`, `updatedAt`, `eleitor_id`, `eleicao_id`) VALUES
-	(1, 'Liga da Justiça', 0, 0, 1, '2024-11-03 19:30:05', '2024-11-03 19:30:05', 63, 1),
-	(2, 'Vingadores', 0, 0, 2, '2024-11-03 19:30:15', '2024-11-03 19:30:15', 11, 1),
-	(3, 'Jovens Titans', 0, 0, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 40, 1);
+	(1, 'Liga da Justiça', 4, 0, 1, '2024-11-06 04:37:12', '2024-11-07 23:59:13', 1, 1),
+	(2, 'Vingadores', 1, 0, 2, '2024-11-06 04:37:21', '2024-11-07 23:59:13', 5, 1),
+	(3, 'X-men', 3, 0, 3, '2024-11-06 04:37:36', '2024-11-07 23:59:13', 13, 1);
 
 -- Copiando estrutura para tabela eleicao.comprovantes
 CREATE TABLE IF NOT EXISTS `comprovantes` (
@@ -53,14 +53,11 @@ CREATE TABLE IF NOT EXISTS `comprovantes` (
   PRIMARY KEY (`id`),
   KEY `eleitor_id` (`eleitor_id`),
   KEY `eleicao_id` (`eleicao_id`),
-  CONSTRAINT `comprovantes_ibfk_1` FOREIGN KEY (`eleitor_id`) REFERENCES `eleitores` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `comprovantes_ibfk_2` FOREIGN KEY (`eleicao_id`) REFERENCES `eleicoes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `comprovantes_ibfk_1` FOREIGN KEY (`eleitor_id`) REFERENCES `eleitores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comprovantes_ibfk_2` FOREIGN KEY (`eleicao_id`) REFERENCES `eleicoes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela eleicao.comprovantes: ~2 rows (aproximadamente)
-INSERT INTO `comprovantes` (`id`, `createdAt`, `updatedAt`, `eleitor_id`, `eleicao_id`) VALUES
-	(10, '2024-11-04 00:43:40', '2024-11-04 00:43:40', 1, 1),
-	(11, '2024-11-04 00:45:50', '2024-11-04 00:45:50', 2, 1);
+-- Copiando dados para a tabela eleicao.comprovantes: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela eleicao.eleicoes
 CREATE TABLE IF NOT EXISTS `eleicoes` (
@@ -76,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `eleicoes` (
 
 -- Copiando dados para a tabela eleicao.eleicoes: ~1 rows (aproximadamente)
 INSERT INTO `eleicoes` (`id`, `descricao`, `inicio`, `fim`, `status`, `createdAt`, `updatedAt`) VALUES
-	(1, 'Centro Acadêmico (CADS)', '2024-11-04 11:00:00', '2024-04-08 02:59:00', 1, '2024-11-03 19:27:07', '2024-11-03 19:27:07');
+	(1, 'Melhor Equipe de Heróis', '2024-11-06 05:36:00', '2024-11-14 04:36:00', 2, '2024-11-06 04:36:37', '2024-11-07 23:59:05');
 
 -- Copiando estrutura para tabela eleicao.eleitores
 CREATE TABLE IF NOT EXISTS `eleitores` (
@@ -166,18 +163,20 @@ CREATE TABLE IF NOT EXISTS `urnas` (
   `eleicao_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `eleicao_id` (`eleicao_id`),
-  CONSTRAINT `urnas_ibfk_1` FOREIGN KEY (`eleicao_id`) REFERENCES `eleicoes` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `urnas_ibfk_1` FOREIGN KEY (`eleicao_id`) REFERENCES `eleicoes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela eleicao.urnas: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela eleicao.urnas: ~3 rows (aproximadamente)
 INSERT INTO `urnas` (`id`, `descricao`, `status`, `createdAt`, `updatedAt`, `eleicao_id`) VALUES
-	(2, 'Urna Única', 0, '2024-11-03 20:07:18', '2024-11-03 20:07:18', 1);
+	(1, 'Urna 1', 1, '2024-11-06 04:36:45', '2024-11-07 23:59:08', 1),
+	(2, 'Urna 2', 0, '2024-11-06 04:36:53', '2024-11-06 04:36:53', 1),
+	(3, 'Urna 3', 0, '2024-11-06 04:36:59', '2024-11-06 04:36:59', 1);
 
 -- Copiando estrutura para tabela eleicao.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
-  `password` varchar(250) DEFAULT NULL,
+  `password` varchar(250) NOT NULL,
   `categoria` int(11) DEFAULT NULL,
   `codigo` varchar(45) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
@@ -187,74 +186,73 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`id`),
   KEY `eleitor_id` (`eleitor_id`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`eleitor_id`) REFERENCES `eleitores` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela eleicao.usuarios: ~64 rows (aproximadamente)
+-- Copiando dados para a tabela eleicao.usuarios: ~63 rows (aproximadamente)
 INSERT INTO `usuarios` (`id`, `username`, `password`, `categoria`, `codigo`, `status`, `createdAt`, `updatedAt`, `eleitor_id`) VALUES
-	(3, '20241ADS.CNT0024', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 2),
-	(4, '20232ADS.CNT0040', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 5),
-	(5, '20232ADS.CNT0024', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 3),
-	(6, '20241ADS.CNT0031', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 6),
-	(7, '20241ADS.CNT0015', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 4),
-	(8, '20241ADS.CNT0001', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 7),
-	(9, '20232ADS.CNT0001', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 8),
-	(10, '20242ADS.CNT0004', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 9),
-	(11, '20232ADS.CNT0037', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 10),
-	(12, '20232ADS.CNT0008', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 11),
-	(13, '20241ADS.CNT0008', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 12),
-	(14, '20232ADS.CNT0014', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 13),
-	(15, '20232ADS.CNT0033', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 14),
-	(16, '20241ADS.CNT0016', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 15),
-	(17, '20232ADS.CNT0010', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 16),
-	(18, '20232ADS.CNT0013', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 17),
-	(19, '20241ADS.CNT0026', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 18),
-	(20, '20241ADS.CNT0014', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 19),
-	(21, '20232ADS.CNT0005', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 20),
-	(22, '20241ADS.CNT0021', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 21),
-	(23, '20241ADS.CNT0020', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 22),
-	(24, '20232ADS.CNT0038', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 23),
-	(25, '20232ADS.CNT0030', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 24),
-	(26, '20232ADS.CNT0022', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 25),
-	(27, '20241ADS.CNT0004', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 26),
-	(28, '20241ADS.CNT0022', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 27),
-	(29, '20232ADS.CNT0028', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 28),
-	(30, '20232ADS.CNT0009', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 29),
-	(31, '20232ADS.CNT0034', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 30),
-	(32, '20241ADS.CNT0012', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 31),
-	(33, '20241ADS.CNT0023', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 32),
-	(34, '20241ADS.CNT0030', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 33),
-	(35, '20232ADS.CNT0023', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 34),
-	(36, '20232ADS.CNT0007', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 35),
-	(37, '20242ADS.CNT0005', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 36),
-	(38, '20241ADS.CNT0010', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 37),
-	(39, '20241ADS.CNT0032', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 38),
-	(40, '20232ADS.CNT0031', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 39),
-	(41, '20232ADS.CNT0002', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 40),
-	(42, '20241ADS.CNT0034', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 41),
-	(43, '20241ADS.CNT0013', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 42),
-	(44, '20241ADS.CNT0028', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 43),
-	(45, '20241ADS.CNT0017', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 44),
-	(46, '20232ADS.CNT0003', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 45),
-	(47, '20241ADS.CNT0007', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 46),
-	(48, '20232ADS.CNT0004', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 47),
-	(49, '20241ADS.CNT0018', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 48),
-	(50, '20241ADS.CNT0006', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 49),
-	(51, '20241ADS.CNT0002', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 50),
-	(52, '20242ADS.CNT0002', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 51),
-	(53, '20241ADS.CNT0027', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 52),
-	(54, '20242ADS.CNT0003', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 53),
-	(55, '20232ADS.CNT0039', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 54),
-	(56, '20241ADS.CNT0029', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 55),
-	(57, '20242ADS.CNT0001', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 56),
-	(58, '20232ADS.CNT0011', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 57),
-	(59, '20232ADS.CNT0016', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 58),
-	(60, '20241ADS.CNT0005', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 59),
-	(61, '20232ADS.CNT0021', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 60),
-	(62, '20232ADS.CNT0015', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 61),
-	(63, '20232ADS.CNT0012', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 62),
-	(64, '20232ADS.CNT0019', '$2a$10$V.ItWdFSQ4KRbCJ5PXke/ezVntHCghLZL/Al8YPqtRGviIgIN/vqG', 0, NULL, 1, '2024-11-03 23:44:15', '2024-11-03 23:44:15', 63),
-	(65, '232323', '$2a$10$MZ1chMUl/QU3dQyS4lioT..Rsn92DbHTZWS3aBahFLfKGzcr5ppXS', 0, NULL, 0, '2024-11-04 11:42:01', '2024-11-04 11:42:01', NULL),
-	(66, '1226388', '$2a$10$Qy9lPIlSnU4mnri9FWAYuOJJLc6SaLECHa5kWUOtqE7MZlNWozxba', 1, NULL, 0, '2024-11-04 12:23:37', '2024-11-04 12:30:01', NULL);
+	(1, '1226388', '$2a$10$uCRrJexf/cvnH3.OhvmfGu6R066yIzuy.g4.MkaD0bddKuesVSwcu', 1, NULL, 1, '2024-11-05 14:49:12', '2024-11-06 03:16:55', 1),
+	(3, '20241ADS.CNT0024', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 2),
+	(4, '20232ADS.CNT0024', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 3),
+	(5, '20232ADS.CNT0001', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 8),
+	(6, '20241ADS.CNT0015', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 4),
+	(7, '20232ADS.CNT0040', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 5),
+	(8, '20241ADS.CNT0031', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 6),
+	(9, '20241ADS.CNT0001', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 7),
+	(10, '20242ADS.CNT0004', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 9),
+	(11, '20232ADS.CNT0037', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 10),
+	(12, '20232ADS.CNT0008', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 11),
+	(13, '20241ADS.CNT0008', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 12),
+	(14, '20232ADS.CNT0014', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 13),
+	(15, '20232ADS.CNT0033', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 14),
+	(16, '20241ADS.CNT0016', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 15),
+	(17, '20232ADS.CNT0010', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 16),
+	(18, '20232ADS.CNT0013', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 17),
+	(19, '20241ADS.CNT0026', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 18),
+	(20, '20241ADS.CNT0014', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 19),
+	(21, '20232ADS.CNT0005', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 20),
+	(22, '20241ADS.CNT0021', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 21),
+	(23, '20241ADS.CNT0020', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 22),
+	(24, '20232ADS.CNT0038', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 23),
+	(25, '20232ADS.CNT0030', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 24),
+	(26, '20232ADS.CNT0022', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 25),
+	(27, '20241ADS.CNT0004', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 26),
+	(28, '20241ADS.CNT0022', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 27),
+	(29, '20232ADS.CNT0028', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 28),
+	(30, '20232ADS.CNT0009', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 29),
+	(31, '20232ADS.CNT0034', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 30),
+	(32, '20241ADS.CNT0012', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 31),
+	(33, '20241ADS.CNT0023', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 32),
+	(34, '20241ADS.CNT0030', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 33),
+	(35, '20232ADS.CNT0023', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 34),
+	(36, '20232ADS.CNT0007', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 35),
+	(37, '20242ADS.CNT0005', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 36),
+	(38, '20241ADS.CNT0010', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 37),
+	(39, '20241ADS.CNT0032', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 38),
+	(40, '20232ADS.CNT0031', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 39),
+	(41, '20232ADS.CNT0002', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 40),
+	(42, '20241ADS.CNT0034', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 41),
+	(43, '20241ADS.CNT0013', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 42),
+	(44, '20241ADS.CNT0028', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 43),
+	(45, '20241ADS.CNT0017', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 44),
+	(46, '20232ADS.CNT0003', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 45),
+	(47, '20241ADS.CNT0007', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 46),
+	(48, '20232ADS.CNT0004', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 47),
+	(49, '20241ADS.CNT0018', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 48),
+	(50, '20241ADS.CNT0006', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 49),
+	(51, '20241ADS.CNT0002', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 50),
+	(52, '20242ADS.CNT0002', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 51),
+	(53, '20241ADS.CNT0027', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 52),
+	(54, '20242ADS.CNT0003', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 53),
+	(55, '20232ADS.CNT0039', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 54),
+	(56, '20241ADS.CNT0029', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 55),
+	(57, '20242ADS.CNT0001', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 56),
+	(58, '20232ADS.CNT0011', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 57),
+	(59, '20232ADS.CNT0016', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 58),
+	(60, '20241ADS.CNT0005', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 59),
+	(61, '20232ADS.CNT0021', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 60),
+	(62, '20232ADS.CNT0015', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 61),
+	(63, '20232ADS.CNT0012', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 62),
+	(64, '20232ADS.CNT0019', 'senha', 0, NULL, 1, '2024-11-05 18:28:06', '2024-11-05 18:28:06', 63);
 
 -- Copiando estrutura para tabela eleicao.votos
 CREATE TABLE IF NOT EXISTS `votos` (
@@ -265,14 +263,20 @@ CREATE TABLE IF NOT EXISTS `votos` (
   PRIMARY KEY (`id`),
   KEY `urna_id` (`urna_id`),
   KEY `candidato_id` (`candidato_id`),
-  CONSTRAINT `votos_ibfk_1` FOREIGN KEY (`urna_id`) REFERENCES `urnas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `votos_ibfk_2` FOREIGN KEY (`candidato_id`) REFERENCES `candidatos` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `votos_ibfk_1` FOREIGN KEY (`urna_id`) REFERENCES `urnas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `votos_ibfk_2` FOREIGN KEY (`candidato_id`) REFERENCES `candidatos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela eleicao.votos: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela eleicao.votos: ~8 rows (aproximadamente)
 INSERT INTO `votos` (`id`, `tipo`, `urna_id`, `candidato_id`) VALUES
-	(11, 1, 2, 2),
-	(12, 1, 2, 2);
+	(91, 1, 1, 1),
+	(92, 1, 1, 1),
+	(93, 0, 1, 2),
+	(94, 0, 1, 1),
+	(95, 0, 1, 3),
+	(96, 0, 1, 3),
+	(97, 0, 1, 3),
+	(98, 0, 1, 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

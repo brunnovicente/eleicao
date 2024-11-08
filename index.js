@@ -55,7 +55,7 @@ servidor.engine('handlebars', handlebars.engine({
         statusEleicao: function (status) {
             switch (status) {
                 case 0: return "Criada";
-                case 1: return "Aberto";
+                case 1: return "Em votação";
                 case 2: return "Em apuração";
                 case 3: return "Encerrada";
                 default: return "Desconhecido";
@@ -65,6 +65,7 @@ servidor.engine('handlebars', handlebars.engine({
             switch (status) {
                 case 0: return "Fechada";
                 case 1: return "Aberta";
+                case 2: return "Apurada";
             }
         },
         categoriaUsuario: function (categoria){

@@ -44,11 +44,21 @@
                             </li>
                         {{/if}}
                         {{#if (igual ../usuario.categoria 1)}}
-                            <li>
-                                <a href="/eleicao/iniciar/{{id}}" class="dropdown-item text-success">
-                                    <i class="fa-solid fa-play"></i> Iniciar
-                                </a>
-                            </li>
+                            {{#if (igual status 0)}}
+                                <li>
+                                    <a href="/eleicao/iniciar/{{id}}" class="dropdown-item text-success">
+                                        <i class="fa-solid fa-play"></i> Iniciar
+                                    </a>
+                                </li>
+                            {{/if}}
+                            {{#if (igual status 1)}}
+                                <li>
+                                    <a href="/eleicao/encerrar/{{id}}" class="dropdown-item text-primary">
+                                        <i class="fa-solid fa-stop"></i> Encerrar Votação
+                                    </a>
+                                </li>
+                            {{/if}}
+
 
                             <li>
                                 <a href="/urna/{{id}}" class="dropdown-item text-secondary">
@@ -61,7 +71,7 @@
                                 <i class="fa-solid fa-user-tie"></i> Candidatos
                             </a>
                         </li>
-                        <a href="/eleicao/resultado/{{eleicao.id}}" class="dropdown-item text-success">
+                        <a href="/eleicao/resultados/{{id}}" class="dropdown-item text-success">
                             <i class="fa-solid fa-chart-pie"></i> Resultados
                         </a>
                         {{#if (igual ../usuario.categoria 1)}}

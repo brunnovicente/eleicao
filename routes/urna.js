@@ -66,22 +66,24 @@ router.get('/abrir/:id', eAdmin, (req, res)=>{
                 req.flash('error_msg', 'Não é permitido abrir urna antes de encerrar a votação')
                 res.redirect('/urna/'+eleicao.id)
             }
-            urna.update({
-                status: 1,
-            }).then(function (urna){
-                Voto.findAll({
-                    where:{
-                        urna_id: urna.id
-                    },
-                    include:{
-                        model: Candidato,
-                        alias: 'candidato'
-                    }
-                }).then(function (votos){
-                    urna.eleicao = eleicao
-                    res.render('urna/abrir', {urna: urna, votos: votos})
+            if(urna.status == 0){
+                urna.update({
+                    status: 1,
                 })
+            }
+            Voto.findAll({
+                where:{
+                    urna_id: urna.id
+                },
+                include:{
+                    model: Candidato,
+                    alias: 'candidato'
+                }
+            }).then(function (votos){
+                urna.eleicao = eleicao
+                res.render('urna/abrir', {urna: urna, votos: votos})
             })
+
         })
     })
 })
@@ -108,14 +110,17 @@ router.get('/apurar/:id', eAdmin,(req, res)=>{
                 }
             }).then(function (candidatos){
                 for (let i=0; i < candidatos.length; i++){
-                    let qtd = contar(votos, candidatos[i].id)
+                    let qtd = contar(votos, candidatos[i].id) + candidatos[i].votos
                     //req.flash('success_msg', 'QTD: '+qtd)
                     candidatos[i].update({
                         votos: qtd
                     })
                 }
+                urna.update({
+                    status: 2
+                })
                 req.flash('success_msg', 'Urna apurada com sucesso')
-                res.redirect('/urna/'+req.params.id)
+                res.redirect('/urna/abrir/'+urna.id)
             })
         })
 

@@ -17,18 +17,25 @@ router.get('/votar/:id/:ur', (req, res) => {
             req.flash('error_msg', 'Você já votou nessa eleição');
             res.redirect('/principal')
         }else{
-            Candidato.findAll({
-                    where: {
-                        eleicao_id: req.params.id
-                    }
-                }).then((candidatos) => {
-                    Eleicao.findByPk(req.params.id).then((eleicao) => {
-                        Urna.findByPk(req.params.ur).then(function (urna) {
-                            res.render('voto/votar', { candidatos: candidatos, urna: urna, eleicao: eleicao});
+            Eleicao.findByPk(req.params.id).then(function (eleicao){
+                if(eleicao.status != 1){
+                    req.flash('error_msg', 'Eleição não está em votação');
+                    res.redirect('urna/'+eleicao.id)
+                }else{
+                    Candidato.findAll({
+                        where: {
+                            eleicao_id: req.params.id
+                        }
+                    }).then((candidatos) => {
+                        Eleicao.findByPk(req.params.id).then((eleicao) => {
+                            Urna.findByPk(req.params.ur).then(function (urna) {
+                                res.render('voto/votar', { candidatos: candidatos, urna: urna, eleicao: eleicao});
+                            })
                         })
                     })
-                })
-        }
+                }
+            })//Fim da Busca da eleicão
+        }//Fim do else
     })
 
 
